@@ -3,9 +3,10 @@ import requests
 import ctypes
 
 
-def set_desktop_wallpaper(path):
-    # Call Windows OS functions to set wallpaper.
+def set_wallpaper(path):
+    # Set the image as desktop and lockscreen wallpaper.
     ctypes.windll.user32.SystemParametersInfoW(20, 0, path, 0)
+    os.system(f'igcmdWin10.exe setlockimage {path}')
 
 
 def get_screen_resolution():
@@ -25,7 +26,7 @@ def unsplash_wallpaper():
         with open(image_path, "wb") as image_file:
             # Write the received file to the path, then set the wallpaper.
             image_file.write(request_image.content)
-        set_desktop_wallpaper(image_path)
+        set_wallpaper(image_path)
 
 
 if __name__ == "__main__":
